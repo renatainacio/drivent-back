@@ -11,24 +11,18 @@ export type RequestError = {
   message: string;
 };
 
-export type cepAPI = {
-  cep: string,
-  logradouro: string,
-  complemento: string,
-  bairro: string,
-  localidade: string,
-  uf: string,
-  ibge: string,
-  gia: string,
-  ddd: string,
-  siafi: string,
-  erro? : boolean
-}
+export type ViaCEPAddressError = {
+  error: boolean;
+};
 
-export type address = {
-  logradouro: string,
-  complemento: string,
-  bairro: string,
-  cidade: string,
-  uf: string
-}
+export type AddressEnrollment = {
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+};
+
+export type CEP = {
+  cep: string;
+};
