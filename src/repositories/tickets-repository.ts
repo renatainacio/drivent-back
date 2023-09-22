@@ -22,7 +22,7 @@ async function getUserTickets(enrollmentId: number){
 
 async function createTicket(enrollmentId: number, ticketType: CreateTicketParams){
     const date = new Date();
-    await prisma.ticket.create({
+    const ticket = await prisma.ticket.create({
         data: {
             ticketTypeId: ticketType.ticketTypeId,
             enrollmentId: enrollmentId,
@@ -30,7 +30,8 @@ async function createTicket(enrollmentId: number, ticketType: CreateTicketParams
             createdAt: date,
             updatedAt: date
         }
-    })
+    });
+    return ticket;
 }
 
 export type CreateTicketParams = { ticketTypeId: number };
