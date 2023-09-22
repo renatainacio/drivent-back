@@ -29,6 +29,9 @@ async function createTicket(enrollmentId: number, ticketType: CreateTicketParams
             status: TicketStatus.RESERVED,
             createdAt: date,
             updatedAt: date
+        },
+        include: {
+            TicketType: true
         }
     });
     return ticket;
