@@ -34,6 +34,7 @@ async function createTicket(enrollmentId: number, ticketType: CreateTicketParams
             TicketType: true
         }
     });
+    console.log(ticket);
     return ticket;
 }
 
