@@ -25,7 +25,7 @@ async function createPayment(payment: CreatePaymentParams, ticketPrice: number){
             ticketId: payment.ticketId,
             cardIssuer: payment.cardData.issuer,
             value: ticketPrice,
-            cardLastDigits: payment.cardData.number.toString().slice(-4),
+            cardLastDigits: payment.cardData.number.slice(-4),
             createdAt: date,
             updatedAt: date
         }
@@ -36,11 +36,11 @@ async function createPayment(payment: CreatePaymentParams, ticketPrice: number){
 export type CreatePaymentParams = { 
     ticketId: number,
 	cardData: {
-		issuer: string,
-    number: number,
-    name: string,
-    expirationDate: Date,
-    cvv: number
+        issuer: string,
+        number: string,
+        name: string,
+        expirationDate: string,
+        cvv: string
 	}
 };
 
