@@ -20,6 +20,19 @@ async function getUserTickets(enrollmentId: number){
     return ticket;
 }
 
+async function getTicketById(ticketId: number){
+    const ticket = await prisma.ticket.findUnique({
+        where: {
+            id: ticketId
+        },
+        include: {
+            TicketType: true,
+            Enrollment: true
+        }
+    })
+    return ticket;
+}
+
 async function createTicket(enrollmentId: number, ticketType: CreateTicketParams){
     const date = new Date();
     const ticket = await prisma.ticket.create({
@@ -43,5 +56,6 @@ export type CreateTicketParams = { ticketTypeId: number };
 export const ticketsRepository = {
     getTicketTypes,
     getUserTickets,
-    createTicket
+    createTicket,
+    getTicketById
 }
