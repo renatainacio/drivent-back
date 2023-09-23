@@ -11,9 +11,10 @@ async function getPaymentFromTicket(ticketId: number, userId: number){
     return payment;
 }
 
-async function createPayment(payment: CreatePaymentParams){
+async function createPayment(payment: CreatePaymentParams, userId: number){
     const ticket = await ticketsRepository.getTicketById(payment.ticketId);
     if (!ticket) throw notFoundError();
+    if (ticket.Enrollment.userId !== userId) throw unauthorizedError();
     const result = await paymentsRepository.createPayment(payment, ticket.TicketType.price);
     return result;
 }
