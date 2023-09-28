@@ -12,13 +12,13 @@ async function checkIfElegibleForHotel(userId: number){
 }
 
 async function getHotels(userId: number){
-    checkIfElegibleForHotel(userId);
+    await checkIfElegibleForHotel(userId);
     const hotels = await hotelsRepository.getHotels();
     return hotels;
 }
 
 async function getHotelsById(id: number, userId: number){
-    checkIfElegibleForHotel(userId);
+    await checkIfElegibleForHotel(userId);
     const hotel = await hotelsRepository.getHotelbyId(id);
     if (!hotel) throw notFoundError();
     return hotel;
