@@ -3,9 +3,15 @@ import 'express-async-errors';
 import express, { Express } from 'express';
 import cors from 'cors';
 import { handleApplicationErrors } from '@/middlewares';
-import { usersRouter, authenticationRouter, eventsRouter, enrollmentsRouter, ticketsRouter } from '@/routers';
+import {
+  usersRouter,
+  authenticationRouter,
+  eventsRouter,
+  enrollmentsRouter,
+  ticketsRouter,
+  paymentsRouter,
+} from '@/routers';
 import { loadEnv, connectDb, disconnectDB } from '@/config';
-import { paymentsRouter } from './routers/payments-router';
 
 loadEnv();
 

@@ -1,6 +1,6 @@
-import { CreateTicketParams } from '@/repositories';
 import Joi from 'joi';
+import { InputTicketBody } from '@/protocols';
 
-export const createTicketSchema = Joi.object<CreateTicketParams>({
-  ticketTypeId: Joi.number().integer().min(1).required()
+export const ticketSchema = Joi.object<InputTicketBody>({
+  ticketTypeId: Joi.number().required(),
 });

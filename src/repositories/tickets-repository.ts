@@ -1,61 +1,56 @@
-import { prisma } from "@/config"
-import { notFoundError } from "@/errors";
-import { Ticket, TicketStatus } from "@prisma/client";
+import { TicketStatus } from '@prisma/client';
+import { prisma } from '@/config';
+import { CreateTicketParams } from '@/protocols';
 
-
-async function getTicketTypes(){
-    const ticketTypes = await prisma.ticketType.findMany();
-    return ticketTypes;
+async function findTicketTypes() {
+  const result = await prisma.ticketType.findMany();
+  return result;
 }
 
-async function getUserTickets(enrollmentId: number){
-    const ticket = await prisma.ticket.findUnique({
-        include: {
-            TicketType: true,
-        },
-        where: {
-            enrollmentId: enrollmentId
-        }
-    })
-    return ticket;
+async function findTicketByEnrollmentId(enrollmentId: number) {
+  const result = await prisma.ticket.findUnique({
+    where: { enrollmentId },
+    include: { TicketType: true },
+  });
+
+  return result;
 }
 
-async function getTicketById(ticketId: number){
-    const ticket = await prisma.ticket.findUnique({
-        where: {
-            id: ticketId
-        },
-        include: {
-            TicketType: true,
-            Enrollment: true
-        }
-    })
-    return ticket;
+async function createTicket(ticket: CreateTicketParams) {
+  const result = await prisma.ticket.create({
+    data: ticket,
+    include: { TicketType: true },
+  });
+
+  return result;
 }
 
-async function createTicket(enrollmentId: number, ticketType: CreateTicketParams){
-    const date = new Date();
-    const ticket = await prisma.ticket.create({
-        data: {
-            ticketTypeId: ticketType.ticketTypeId,
-            enrollmentId: enrollmentId,
-            status: TicketStatus.RESERVED,
-            createdAt: date,
-            updatedAt: date
-        },
-        include: {
-            TicketType: true
-        }
-    });
-    console.log(ticket);
-    return ticket;
+async function findTicketById(ticketId: number) {
+  const result = await prisma.ticket.findUnique({
+    where: { id: ticketId },
+    include: { TicketType: true },
+  });
+
+  return result;
 }
 
-export type CreateTicketParams = { ticketTypeId: number };
+async function ticketProcessPayment(ticketId: number) {
+  const result = prisma.ticket.update({
+    where: {
+      id: ticketId,
+    },
+    data: {
+      status: TicketStatus.PAID,
+    },
+  });
+
+  return result;
+}
 
 export const ticketsRepository = {
-    getTicketTypes,
-    getUserTickets,
-    createTicket,
-    getTicketById
-}
+  findTicketTypes,
+  findTicketByEnrollmentId,
+  createTicket,
+  findTicketById,
+  ticketProcessPayment,
+};

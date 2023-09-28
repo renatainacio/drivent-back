@@ -1,14 +1,13 @@
-
-import { CreatePaymentParams } from '@/repositories';
 import Joi from 'joi';
+import { InputPaymentBody } from '@/protocols';
 
-export const createPaymentSchema = Joi.object<CreatePaymentParams>({
-  ticketId: Joi.number().integer().min(1).required(),
-	cardData: {
-		issuer: Joi.string().required(),
-    number: Joi.string().required().min(15).max(15),
+export const paymentSchema = Joi.object<InputPaymentBody>({
+  ticketId: Joi.number().required(),
+  cardData: {
+    issuer: Joi.string().required(),
+    number: Joi.string().required(),
     name: Joi.string().required(),
     expirationDate: Joi.string().required(),
-    cvv: Joi.string().min(3).max(3).required()
-	}
+    cvv: Joi.string().required(),
+  },
 });
