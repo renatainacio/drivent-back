@@ -9,17 +9,20 @@ async function checkIfElegibleForHotel(userId: number){
     const ticket = await ticketsRepository.findTicketByEnrollmentId(enrollment.id);
     if (!ticket) throw notFoundError();
     if (ticket.status !== TicketStatus.PAID || !ticket.TicketType.includesHotel || ticket.TicketType.isRemote) throw paymentRequiredError();
+    
 }
 
 async function getHotels(userId: number){
     await checkIfElegibleForHotel(userId);
     const hotels = await hotelsRepository.getHotels();
+    if (hotels.length === 0) throw notFoundError();
     return hotels;
 }
 
 async function getHotelsById(id: number, userId: number){
     await checkIfElegibleForHotel(userId);
     const hotel = await hotelsRepository.getHotelbyId(id);
+    console.log(hotel);
     if (!hotel) throw notFoundError();
     return hotel;
 }
