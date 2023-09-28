@@ -11,7 +11,7 @@ export async function getHotels(req: AuthenticatedRequest, res: Response) {
 
 export async function getHotelbyId(req: AuthenticatedRequest, res: Response) {
     const { userId } = req;
-    const { id } = req.params;
-    const rooms = await hotelsService.getHotelsById(Number(id), userId);
+    const { hotelId } = req.params;
+    const rooms = await hotelsService.getHotelsById(Number(hotelId), userId);
     res.status(httpStatus.OK).send(rooms);
 }
