@@ -6,7 +6,7 @@ async function getHotels(){
 }
 
 async function getHotelbyId(id: number){
-    const rooms = await prisma.hotel.findMany({
+    const room = await prisma.hotel.findUnique({
         where: {
             id
         },
@@ -14,7 +14,7 @@ async function getHotelbyId(id: number){
             Rooms: true
         }
     })
-    return rooms;
+    return room;
 }
 
 const hotelsRepository = {

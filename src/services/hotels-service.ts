@@ -22,7 +22,6 @@ async function getHotels(userId: number){
 async function getHotelsById(id: number, userId: number){
     await checkIfElegibleForHotel(userId);
     const hotel = await hotelsRepository.getHotelbyId(id);
-    console.log(hotel);
     if (!hotel) throw notFoundError();
     return hotel;
 }
