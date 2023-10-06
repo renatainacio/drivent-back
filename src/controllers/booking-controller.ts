@@ -1,5 +1,5 @@
 import { AuthenticatedRequest } from "@/middlewares";
-import { bookingsService } from "@/services/bookings-service";
+import { bookingsService } from "@/services/booking-service";
 import { Response } from "express";
 import httpStatus from "http-status";
 
@@ -21,5 +21,5 @@ export async function updateBooking(req: AuthenticatedRequest, res: Response){
     const { roomId } = req.body;
     const { bookingId } = req.params;
     await bookingsService.updateBooking(Number(bookingId), roomId, userId);
-    res.status(httpStatus.OK).send({bookingId});
+    res.status(httpStatus.OK).send({bookingId: Number(bookingId)});
 }

@@ -1,4 +1,4 @@
-import { getBooking, postBooking, updateBooking } from "@/controllers/bookings-controller";
+import { getBooking, postBooking, updateBooking } from "@/controllers/booking-controller";
 import { authenticateToken } from "@/middlewares";
 import { Router } from "express";
 

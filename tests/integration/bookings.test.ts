@@ -194,7 +194,7 @@ beforeAll(async () => {
                 roomId: anotherRoom.id
             })
             expect(response.status).toBe(200);
-            expect(response.body).toEqual({bookingId: String(booking.id)});
+            expect(response.body).toEqual({bookingId: booking.id});
             const updatedBooking = await prisma.booking.findUnique({
                 where: {
                     userId: user.id
